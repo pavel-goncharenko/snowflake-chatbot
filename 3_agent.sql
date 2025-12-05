@@ -72,4 +72,4 @@ $$;
 
 call create_agent($schema_name);
 
-SELECT 'https://app.snowflake.com/_deeplink/#/agents/database/DEMO/schema/' || $current_user_name || '/agent/chatbot/details' as go_to_url;
+SELECT 'https://app.snowflake.com/_deeplink/#/agents/database/DEMO/schema/' || $current_user_name || '/agent/CHATBOT/details' as go_to_url;
