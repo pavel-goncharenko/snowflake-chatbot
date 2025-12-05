@@ -224,3 +224,16 @@ INSERT INTO HR_EVENT VALUES
 (28, 8, 'Promotion','2023-01-11', 'Promoted'),
 (29, 9, 'Leave',    '2023-04-25', 'Pending'),
 (30,10,'Training',  '2023-01-29', 'Completed');
+
+
+----
+
+create schema DEMO.SHARED;
+use schema DEMO.SHARED;
+
+CREATE STAGE my_images
+ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE') -- LLM doesn't support client side encryption
+DIRECTORY = (ENABLE = TRUE)
+COMMENT = 'Stage for storing image files';
+
+--- Upload sample images to the stage manually using Snowflake UI or SnowSQL client.
