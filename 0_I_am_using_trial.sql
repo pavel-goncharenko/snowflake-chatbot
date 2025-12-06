@@ -4,14 +4,12 @@ CREATE API INTEGRATION github_llm
   API_ALLOWED_PREFIXES = ('https://github.com/pavel-goncharenko')
   ENABLED = TRUE;
 
--- loading json5
+-- loading json5 later
 GRANT DATABASE ROLE SNOWFLAKE.PYPI_REPOSITORY_USER TO ROLE PUBLIC;
 
----
+--- DEMO database from https://codemie.lab.epam.com/#/share/conversations/MazvXyg3gLbx
 
 CREATE DATABASE DEMO;
-
--- https://codemie.lab.epam.com/#/share/conversations/MazvXyg3gLbx
 
 CREATE SCHEMA DEMO.SALES;
 USE SCHEMA DEMO.SALES;
@@ -231,9 +229,17 @@ INSERT INTO HR_EVENT VALUES
 create schema DEMO.SHARED;
 use schema DEMO.SHARED;
 
+CREATE STAGE source_images
+  URL = 's3://snowflake-llm-demo/'
+  DIRECTORY = ( ENABLE = TRUE )
+  ENCRYPTION = ( TYPE = 'AWS_SSE_S3' );
+
 CREATE STAGE my_images
 ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE') -- LLM doesn't support client side encryption
 DIRECTORY = (ENABLE = TRUE)
 COMMENT = 'Stage for storing image files';
 
---- Upload sample images to the stage manually using Snowflake UI or SnowSQL client.
+COPY FILES INTO @my_images
+FROM @source_images;
+
+list @my_images;
