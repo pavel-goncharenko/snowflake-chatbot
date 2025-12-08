@@ -1,3 +1,5 @@
+ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+
 -- for workspaces
 CREATE API INTEGRATION github_llm
   API_PROVIDER = git_https_api
