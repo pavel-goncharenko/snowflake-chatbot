@@ -242,4 +242,6 @@ COMMENT = 'Stage for storing image files';
 COPY FILES INTO @my_images
 FROM @source_images;
 
-list @my_images;
+SET current_user_name = CURRENT_USER();
+SET schema_name = 'DEMO.' || $current_user_name;
+CREATE SCHEMA IDENTIFIER($schema_name);
