@@ -244,6 +244,14 @@ COMMENT = 'Stage for storing image files';
 COPY FILES INTO @my_images
 FROM @source_images;
 
+DROP STAGE source_images;
+
 SET current_user_name = CURRENT_USER();
 SET schema_name = 'DEMO.' || $current_user_name;
 CREATE SCHEMA IDENTIFIER($schema_name);
+
+-- PAT will not work without network policy:
+CREATE NETWORK POLICY LLM_DEMO
+  ALLOWED_IP_LIST = ( '0.0.0.0/0')
+  COMMENT = 'Network policy for LLM demo';
+ALTER ACCOUNT SET NETWORK_POLICY = LLM_DEMO;
